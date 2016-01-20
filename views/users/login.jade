@@ -1,0 +1,28 @@
+extends ../layout
+block content
+
+  -if (notice)
+    strong=notice
+    br
+    hr
+
+
+  h1 Login
+  form(action='/users/login', method='post')
+    fieldset
+      .field
+        label(for="userEmail") Email:
+        .control
+          input(type="email", name="email", id="userEmail", placeholder="username@email.com")
+      .field
+        label(for="userPassword") Password:
+        .control
+          input(type="password", name="password", id="userPassword")
+      .actions
+        input(type="submit", name="submit", value="Login")
+
+  .registrations
+    a(href='/users/signup') Register
+    br
+    a(href='/users/login') Login
+    br

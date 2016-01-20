@@ -1,0 +1,32 @@
+extends ../layout
+block content
+  
+  -if (notice)
+    strong=notice
+    br
+    hr
+
+  h1 Register
+  form(action='/users/signup', method='post')
+    fieldset
+      .field
+        label(for="userEmail") Email:
+        .control
+          input(type="email", name="email", id="userEmail", maxlength="80", placeholder="username@email.com")
+      .field
+        label(for="userPassword") Password:
+        .control
+          input(type="password", name="password", id="userPassword")
+      .field
+        label(for="userPasswordAgain") Password Again:
+        .control
+          input(type="password", name="passwordAgain", id="userPasswordAgain")
+      
+      .actions
+        input(type="submit", name="submit", value="Register")
+
+  .registrations
+    a(href='/users/signup') Register
+    br
+    a(href='/users/login') Login
+    br
