@@ -1,0 +1,13 @@
+<div class="profile" data-ng-controller="UsersController">
+  <h1>Hello <span data-ng-bind="User.name"></span></h1>
+  
+  <hr />
+  
+  <h2>My Profile</h2>
+  <dl>
+    <dt>Email:</dt>
+    <dd data-ng-bind="User.email"></dd>
+    <dt>Name:</dt>
+    <input type="text" data-ng-model="User.name" required="required" data-ng-blur="updateUser(User)" />
+  </dl>
+</div>

@@ -181,4 +181,42 @@ router.get('/profile', function(req, res, next){
 });
 
 
+/* GET /users/profile */
+router.get('/profile.json', function(req, res, next){
+  var userID = req.query['user_id'];
+  var User = mongoose.model('User', userSchema);
+
+  // find the user
+  User.findOne({
+    '_id': userID
+  })
+    .exec(function(err, user){
+      if (err) throw err;
+      
+      return res.status(200).json(user);
+  });
+  
+});
+
+/* POST /users/update */
+router.post('/update.json', function(req, res, next){
+  var User = mongoose.model('User', userSchema);
+  var userData = req.body;
+  var userID = userData['_id'];
+  var name = userData['name'];
+  var user = new User({
+      '_id': userID,
+      'name': name
+  });
+  
+  user.update(function(err){
+      if (err) throw err;
+      
+    console.log(user);
+      return res.status(200).json(user); 
+  });
+});
+
+
+
 module.exports = router;

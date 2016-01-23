@@ -1,5 +1,5 @@
 doctype html
-html
+html("data-ng-app"="Espresso")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
@@ -27,3 +27,9 @@ html
 
 #view
   block content
+
+script(src="/bower_components/angular/angular.js")
+script(src="/bower_components/angular-route/angular-route.js")
+script(src="/javascripts/app.js")
+
+
