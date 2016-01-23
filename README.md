@@ -26,4 +26,8 @@ Example of user authentication with NodeJS and MongoDB
 * The ````/users```` is for authenticated users only.
 * You can logout in the ````/users/logout```` route.
 
+## YouTube Video
+https://www.youtube.com/watch?v=rHC03z1GPaA
+
+
 http://conpanna.net/
