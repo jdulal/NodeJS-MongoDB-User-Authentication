@@ -1,0 +1,27 @@
+{
+  "name": "workspace",
+  "description": "",
+  "main": "",
+  "authors": [
+    "ConPanna"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ConPanna/NodeJS-MongoDB-User-Authentication",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.9",
+    "angular-route": "~1.4.9"
+  }
+}
