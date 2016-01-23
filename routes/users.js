@@ -22,6 +22,10 @@ router.get('/', function(req, res, next) {
 // GET login
 router.get('/login', function(req, res, next){
   var notice = req.cookies.notice;
+  res.clearCookie('notice', {
+      path: '/',
+      domain: 'invent-ballet.codio.io'
+  });
   
   res.render('users/login', {
     notice: notice
@@ -48,17 +52,18 @@ router.post('/login', function(req, res, next){
     if (!user){
       console.log('Email and password does not match');
       res.cookie('notice', 'Email and password does not match', {
-        maxAge: new Date(Date.now() + 10),
         domain: 'invent-ballet.codio.io'
       });
       return res.redirect('/users/login');
     }
       else {
+        console.log(user._id);
         res.cookie('userID', user._id, {
-          maxAge: new Date(Date.now() + 10),
+          maxAge: new Date(Date.now() + 600),
           domain: 'invent-ballet.codio.io'
         });
-        return res.redirect('/users');
+        res.locals.userID = user._id;
+        return res.redirect('/users/profile');
       }
   });
 
@@ -67,6 +72,9 @@ router.post('/login', function(req, res, next){
 // GET register
 router.get('/signup', function(req, res, next){
   var notice = req.cookies.notice;
+  res.clearCookie('notice', {
+      domain: 'invent-ballet.codio.io'
+  });
   
   res.render('users/register', {
     notice: notice
@@ -84,7 +92,6 @@ router.post('/signup', function(req, res, next){
   if (!password || !email){
     console.log('Empty fields.');
     res.cookie('notice', 'Please fill in al the fields correctly', {
-      maxAge: new Date(Date.now() + 10),
       domain: 'invent-ballet.codio.io'
     });
     
@@ -95,7 +102,6 @@ router.post('/signup', function(req, res, next){
   if (password !== passwordAgain){
     console.log('Passwords does not match');
     res.cookie('notice', 'Passwords does not match', {
-      maxAge: new Date(Date.now() + 10),
       domain: 'invent-ballet.codio.io'
     });
     
@@ -132,7 +138,6 @@ router.post('/signup', function(req, res, next){
         user.save(function(err){
           if (err) throw err;
           res.cookie('notice', 'Successfully registered', {
-            maxAge: new Date(Date.now() + 10),
             domain: 'invent-ballet.codio.io'
           });
           
@@ -143,11 +148,36 @@ router.post('/signup', function(req, res, next){
   
 });
 
+/* GET /users/logout */
 router.get('/logout', function(req, res, next){
   res.clearCookie('userID', {
       domain: 'invent-ballet.codio.io'
   });
+  res.cookie('notice', 'Logged out', {
+    domain: 'invent-ballet.codio.io'
+  });
   res.redirect('/users/login');
+});
+
+/* GET /users/profile */
+router.get('/profile', function(req, res, next){
+  var User = mongoose.model('User', userSchema);
+  var userID = req.cookies.userID
+  // find the user
+  User.find({
+    '_id': userID
+  })
+    .exec(function(err, user){
+      if (err) throw err;
+      
+      if (!user){
+        return res.redirect('/users/logout');
+      } 
+        else{
+        return res.render('users/profile', {user: user});
+      }
+  });
+  
 });
 
 

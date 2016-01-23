@@ -1,11 +1,5 @@
 extends ../layout
 block content
-  
-  -if (notice)
-    strong=notice
-    br
-    hr
-
   h1 Register
   form(action='/users/signup', method='post')
     fieldset

@@ -4,4 +4,26 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    .menu
+      nav
+        ul
+          li
+            a(href="/") Homepage
+           
+          -if (userID)
+            li
+              a(href="/users/profile")=userID
+            li
+              a(href="/users/logout") Logout
+          -else
+            li
+              a(href="/users/login") Login
+            li
+              a(href="/users/signup") Register
+
+-if (notice)
+  .notice
+    strong=notice
+
+#view
+  block content

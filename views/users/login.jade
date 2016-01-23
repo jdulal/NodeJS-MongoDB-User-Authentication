@@ -1,12 +1,5 @@
 extends ../layout
 block content
-
-  -if (notice)
-    strong=notice
-    br
-    hr
-
-
   h1 Login
   form(action='/users/login', method='post')
     fieldset
